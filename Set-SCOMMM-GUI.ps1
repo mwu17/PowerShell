@@ -39,7 +39,7 @@ function search-server ($Name) {
         $serverName.clear()
     }
     else{
-        $serverGrid.ItemsSource = $searchResult
+        $serverGrid.ItemsSource = @($searchResult)
     }
 }
 
