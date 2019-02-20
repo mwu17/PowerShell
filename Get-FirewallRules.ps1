@@ -4,44 +4,49 @@
 .DESCRIPTION
     Show Firewall rules from the remote computer
 .EXAMPLE
-    Get-FirewallRules -ComputerName dsc-tst1 |ft
-    DisplayName                                                      RemoteAddress                    Protocol LocalPort PSComputerName RunspaceId
------------                                                      -------------                    -------- --------- -------------- ----------
-BranchCache Content Retrieval (HTTP-In)                          Any                              TCP      80        dsc-tst1       effd348e-b5a8-4f88-bca5-17b264639201
-BranchCache Hosted Cache Server (HTTP-In)                        Any                              TCP      {80, 443} dsc-tst1       effd348e-b5a8-4f88-bca5-17b264639201
-BranchCache Peer Discovery (WSD-In)                              LocalSubnet                      UDP      3702      dsc-tst1       effd348e-b5a8-4f88-bca5-17b264639201
-COM+ Network Access (DCOM-In)                                    Any                              TCP      135       dsc-tst1       effd348e-b5a8-4f88-bca5-17b264639201
-COM+ Remote Administration (DCOM-In)                             Any                              TCP      RPC       dsc-tst1       effd348e-b5a8-4f88-bca5-17b264639201
-Distributed Transaction Coordinator (RPC)                        Any                              TCP      RPC       dsc-tst1       effd348e-b5a8-4f88-bca5-17b264639201
-Distributed Transaction Coordinator (RPC-EPMAP)                  Any                              TCP      RPCEPMap  dsc-tst1       effd348e-b5a8-4f88-bca5-17b264639201
-Distributed Transaction Coordinator (TCP-In)                     Any                              TCP      Any       dsc-tst1       effd348e-b5a8-4f88-bca5-17b264639201
-File and Printer Sharing (Echo Request - ICMPv4-In)              Any                              ICMPv4   RPC       dsc-tst1       effd348e-b5a8-4f88-bca5-17b264639201
-File and Printer Sharing (Echo Request - ICMPv6-In)              Any                              ICMPv6   RPC       dsc-tst1       effd348e-b5a8-4f88-bca5-17b264639201
-File and Printer Sharing (LLMNR-UDP-In)                          LocalSubnet                      UDP      5355      dsc-tst1       effd348e-b5a8-4f88-bca5-17b264639201
-File and Printer Sharing (NB-Datagram-In)                        Any                              UDP      138       dsc-tst1       effd348e-b5a8-4f88-bca5-17b264639201
-File and Printer Sharing (NB-Name-In)                            Any                              UDP      137       dsc-tst1       effd348e-b5a8-4f88-bca5-17b264639201
-File and Printer Sharing (NB-Session-In)                         Any                              TCP      139       dsc-tst1       effd348e-b5a8-4f88-bca5-17b264639201
-File and Printer Sharing (SMB-In)                                Any                              TCP      445       dsc-
+Get-FirewallRules dsc-tst1
+
+DisplayName                                                                RemoteAddress                                                       Protocol LocalPort
+-----------                                                                -------------                                                       -------- ---------
+Allow TCP 80 for test                                                      Any                                                                 TCP      80
+Core Networking - Destination Unreachable (ICMPv6-In)                      Any                                                                 ICMPv6   RPC
+Core Networking - Destination Unreachable Fragmentation Needed (ICMPv4-In) Any                                                                 ICMPv4   RPC
+Core Networking - Dynamic Host Configuration Protocol (DHCP-In)            Any                                                                 UDP      68
+Core Networking - Dynamic Host Configuration Protocol for IPv6(DHCPV6-In)  Any                                                                 UDP      546
+Core Networking - Internet Group Management Protocol (IGMP-In)             Any                                                                 2        Any
+Core Networking - IPHTTPS (TCP-In)                                         Any                                                                 TCP      IPHTTPSIn
+Core Networking - IPv6 (IPv6-In)                                           Any                                                                 41       Any
+Core Networking - Multicast Listener Done (ICMPv6-In)                      LocalSubnet6                                                        ICMPv6   RPC
+Core Networking - Multicast Listener Query (ICMPv6-In)                     LocalSubnet6                                                        ICMPv6   RPC
+Core Networking - Multicast Listener Report (ICMPv6-In)                    LocalSubnet6                                                        ICMPv6   RPC
+Core Networking - Multicast Listener Report v2 (ICMPv6-In)                 LocalSubnet6                                                        ICMPv6   RPC
+Core Networking - Neighbor Discovery Advertisement (ICMPv6-In)             Any                                                                 ICMPv6   RPC
+Core Networking - Neighbor Discovery Solicitation (ICMPv6-In)              Any                                                                 ICMPv6   RPC
+Core Networking - Packet Too Big (ICMPv6-In)                               Any                                                                 ICMPv6   RPC
+Core Networking - Parameter Problem (ICMPv6-In)                            Any                                                                 ICMPv6   RPC
+Core Networking - Router Advertisement (ICMPv6-In)                         fe80::/64                                                           ICMPv6   RPC
+Core Networking - Router Solicitation (ICMPv6-In)                          Any                                                                 ICMPv6   RPC
+Core Networking - Teredo (UDP-In)                                          Any                                                                 UDP      Teredo
+Core Networking - Time Exceeded (ICMPv6-In)                                Any                                                                 ICMPv6   RPC
 .EXAMPLE
-$a = Get-FirewallRules -ComputerName dsc-tst1
-Save the firewall rules for later query. for example...
+Get-FirewallRules -ComputerName dsc-tst1 -Name "Core*" -LocalPort RPC
 
-PS C:\> $a | ? displayname -eq "Allow TCP 80 for test"
+DisplayName                                                                RemoteAddress Protocol LocalPort
+-----------                                                                ------------- -------- ---------
+Core Networking - Destination Unreachable (ICMPv6-In)                      Any           ICMPv6   RPC
+Core Networking - Destination Unreachable Fragmentation Needed (ICMPv4-In) Any           ICMPv4   RPC
+Core Networking - Multicast Listener Done (ICMPv6-In)                      LocalSubnet6  ICMPv6   RPC
+Core Networking - Multicast Listener Query (ICMPv6-In)                     LocalSubnet6  ICMPv6   RPC
+Core Networking - Multicast Listener Report (ICMPv6-In)                    LocalSubnet6  ICMPv6   RPC
+Core Networking - Multicast Listener Report v2 (ICMPv6-In)                 LocalSubnet6  ICMPv6   RPC
+Core Networking - Neighbor Discovery Advertisement (ICMPv6-In)             Any           ICMPv6   RPC
+Core Networking - Neighbor Discovery Solicitation (ICMPv6-In)              Any           ICMPv6   RPC
+Core Networking - Packet Too Big (ICMPv6-In)                               Any           ICMPv6   RPC
+Core Networking - Parameter Problem (ICMPv6-In)                            Any           ICMPv6   RPC
+Core Networking - Router Advertisement (ICMPv6-In)                         fe80::/64     ICMPv6   RPC
+Core Networking - Router Solicitation (ICMPv6-In)                          Any           ICMPv6   RPC
+Core Networking - Time Exceeded (ICMPv6-In)                                Any           ICMPv6   RPC
 
-DisplayName    : Allow TCP 80 for test
-RemoteAddress  : Any
-Protocol       : TCP
-LocalPort      : 80
-PSComputerName : DSC-TST1
-RunspaceId     : 21cb465e-2029-41ba-9026-401c893f898d
-.EXAMPLE
-Get-FirewallRules dsc-tst1|? localport -Contains 80|ft
-
-
-DisplayName           RemoteAddress                     Protocol LocalPort PSComputerName RunspaceId
------------           -------------                     -------- --------- -------------- ----------
-Allow TCP 80 for test Any                               TCP      80        DSC-TST1       d458e7dd-4703-43e6-9cb1-6a407c262150
-Test FW               {10.10.10.10, 10.10.1.2, 1.1.1.1} TCP      {80, 443} DSC-TST1       d458e7dd-4703-43e6-9cb1-6a407c262150
 .INPUTS
     Inputs (if any)
 .OUTPUTS
@@ -59,11 +64,31 @@ function Get-FirewallRules {
             ValueFromPipelineByPropertyName = $true)]
         [string] $ComputerName = $env:computername,
 
-        # Parameter help description
+        # Parameter return Enabled firewall rules
         [Parameter(Mandatory = $false,
-        HelpMessage="This parameter specifies that the rule object is administratively enabled or administratively disabled. Default is True")]
+            HelpMessage = "This parameter specifies that the rule object is administratively enabled or administratively disabled. Default is True")]
         [ValidateSet("True", "False")]
-        [string]$Enabled = "True"
+        [string]$Enabled = "True",
+
+        # Firewall rule name
+        [Parameter(Mandatory = $false)]
+        [string]
+        $Name = "",
+
+        # Firewall rule protocol
+        [Parameter(Mandatory = $false)]
+        [String]
+        $Protocol = "",
+
+        # Firewall rule Port
+        [Parameter(Mandatory = $false)]
+        [String]
+        $LocalPort = "",
+
+        # Firewall rule RemoteAddress
+        [Parameter(Mandatory = $false)]
+        [String]
+        $RemoteAddress = ""
     )
     
     begin {
@@ -88,20 +113,73 @@ function Get-FirewallRules {
             $fws = Get-NetFirewallRule -Direction Inbound -PolicyStore ActiveStore -Action Allow -Enabled $args[0]
 
             foreach ($fw in $fws) {
-                $remoteAddress = $fw | Get-NetFirewallAddressFilter | Select-Object -ExpandProperty RemoteAddress
-                $protocol = $fw | Get-NetFirewallPortFilter | Select-Object -ExpandProperty Protocol
-                $localPort = $fw | Get-NetFirewallPortFilter | Select-Object -ExpandProperty LocalPort
-                $fw|Add-Member -MemberType NoteProperty -Name Protocol -Value $protocol
-                $fw|Add-Member -MemberType NoteProperty -Name LocalPort -Value $localPort
-                $fw|Add-Member -MemberType NoteProperty -Name RemoteAddress -Value $remoteAddress
+                $remoteAddress2 = $fw | Get-NetFirewallAddressFilter | select -ExpandProperty RemoteAddress
+                $protocol2 = $fw | Get-NetFirewallPortFilter | select -ExpandProperty Protocol
+                $localPort2 = $fw | Get-NetFirewallPortFilter | select -ExpandProperty LocalPort
+                $fw|Add-Member -MemberType NoteProperty -Name Protocol -Value $protocol2
+                $fw|Add-Member -MemberType NoteProperty -Name LocalPort -Value $localPort2
+                $fw|Add-Member -MemberType NoteProperty -Name RemoteAddress -Value $remoteAddress2
                 $FWObjs += $fw
             }
-            $FWObjs|Sort-Object displayname|Where-Object displayname -NotLike "@{Microsoft.*"|Select-Object displayname, RemoteAddress, Protocol, LocalPort 
-
+            $FWObjs|sort displayname|Where-Object displayname -NotLike "@{Microsoft.*"|select displayname, RemoteAddress, Protocol, LocalPort 
 
         } -ArgumentList $Enabled
         
-        $rules
+        # Firewall rule fileter - switch
+        switch ($true) {
+            (($name -ne "") -and ($Protocol -eq "") -and ($LocalPort -eq "") -and ($RemoteAddress -eq "")) 
+            {$rules|sort displayname|Where-Object displayname -Like $name|select displayname, RemoteAddress, Protocol, LocalPort }
+
+            (($name -ne "") -and ($Protocol -ne "") -and ($LocalPort -eq "") -and ($RemoteAddress -eq "")) 
+            {$rules|sort displayname|Where-Object displayname -Like $name|? protocol -EQ $protocol|select displayname, RemoteAddress, Protocol, LocalPort }
+
+            (($name -ne "") -and ($Protocol -eq "") -and ($LocalPort -ne "") -and ($RemoteAddress -eq "")) 
+            {$rules|sort displayname|Where-Object displayname -Like $name|? LocalPort -Contains $LocalPort|select displayname, RemoteAddress, Protocol, LocalPort }
+
+            (($name -ne "") -and ($Protocol -eq "") -and ($LocalPort -eq "") -and ($RemoteAddress -ne "")) 
+            {$rules|sort displayname|Where-Object displayname -Like $name|? RemoteAddress -Contains $RemoteAddress|select displayname, RemoteAddress, Protocol, LocalPort }
+
+            (($name -ne "") -and ($Protocol -ne "") -and ($LocalPort -ne "") -and ($RemoteAddress -eq "")) 
+            {$rules|sort displayname|Where-Object displayname -Like $name|? protocol -EQ $protocol|? LocalPort -Contains $LocalPort|select displayname, RemoteAddress, Protocol, LocalPort }
+
+            (($name -ne "") -and ($Protocol -ne "") -and ($LocalPort -ne "") -and ($RemoteAddress -ne "")) 
+            {$rules|sort displayname|Where-Object displayname -Like $name|? protocol -EQ $protocol|? LocalPort -Contains $LocalPort|? RemoteAddress -Contains $RemoteAddress|select displayname, RemoteAddress, Protocol, LocalPort }
+
+            (($name -ne "") -and ($Protocol -EQ "") -and ($LocalPort -ne "") -and ($RemoteAddress -ne "")) 
+            {$rules|sort displayname|Where-Object displayname -Like $name|? LocalPort -Contains $LocalPort|? RemoteAddress -Contains $RemoteAddress|select displayname, RemoteAddress, Protocol, LocalPort }
+
+            (($name -ne "") -and ($Protocol -ne "") -and ($LocalPort -eq "") -and ($RemoteAddress -ne "")) 
+            {$rules|sort displayname|Where-Object displayname -Like $name|? protocol -EQ $protocol|? RemoteAddress -Contains $RemoteAddress|select displayname, RemoteAddress, Protocol, LocalPort }
+
+            ########
+        
+            (($name -eq "") -and ($Protocol -eq "") -and ($LocalPort -eq "") -and ($RemoteAddress -eq "")) 
+            {$rules|sort displayname|select displayname, RemoteAddress, Protocol, LocalPort }
+
+            (($name -eq "") -and ($Protocol -ne "") -and ($LocalPort -eq "") -and ($RemoteAddress -eq "")) 
+            {$rules|sort displayname|? protocol -EQ $protocol|select displayname, RemoteAddress, Protocol, LocalPort }
+
+            (($name -eq "") -and ($Protocol -eq "") -and ($LocalPort -ne "") -and ($RemoteAddress -eq "")) 
+            {$rules|sort displayname|? LocalPort -Contains $LocalPort|select displayname, RemoteAddress, Protocol, LocalPort }
+
+            (($name -eq "") -and ($Protocol -eq "") -and ($LocalPort -eq "") -and ($RemoteAddress -ne "")) 
+            {$rules|sort displayname|? RemoteAddress -Contains $RemoteAddress|select displayname, RemoteAddress, Protocol, LocalPort }
+
+            (($name -eq "") -and ($Protocol -ne "") -and ($LocalPort -ne "") -and ($RemoteAddress -eq "")) 
+            {$rules|sort displayname|? protocol -EQ $protocol|? LocalPort -Contains $LocalPort|select displayname, RemoteAddress, Protocol, LocalPort }
+
+            (($name -eq "") -and ($Protocol -ne "") -and ($LocalPort -ne "") -and ($RemoteAddress -ne "")) 
+            {$rules|sort displayname|? protocol -EQ $protocol|? LocalPort -Contains $LocalPort|? RemoteAddress -Contains $RemoteAddress|select displayname, RemoteAddress, Protocol, LocalPort }
+
+            (($name -eq "") -and ($Protocol -EQ "") -and ($LocalPort -ne "") -and ($RemoteAddress -ne "")) 
+            {$rules|sort displayname|? LocalPort -Contains $LocalPort|? RemoteAddress -Contains $RemoteAddress|select displayname, RemoteAddress, Protocol, LocalPort }
+
+            (($name -eq "") -and ($Protocol -ne "") -and ($LocalPort -eq "") -and ($RemoteAddress -ne "")) 
+            {$rules|sort displayname|? protocol -EQ $protocol|? RemoteAddress -Contains $RemoteAddress|select displayname, RemoteAddress, Protocol, LocalPort }
+
+            Default {$rules|sort displayname|select displayname, RemoteAddress, Protocol, LocalPort }
+        }
+        
     }
     
     end {
